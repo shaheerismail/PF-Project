@@ -1,0 +1,8 @@
+ID:1,Name:Panadol,Quantity:5
+ID:2,Name:Rigix,Quantity:50
+ID:3,Name:Methycobal,Quantity:18
+ID:4,Name:Domel,Quantity:20
+ID:5,Name:Alp,Quantity:14
+ID:6,Name:Neoprox,Quantity:8
+ID:7,Name:CipVal,Quantity:19
+ID:8,Name:Tylenol,Quantity:32
