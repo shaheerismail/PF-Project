@@ -1,0 +1,45 @@
+#include <stdio.h>
+#include <string.h>
+
+char CustomerName[100][50]; //Max 100 Customers
+int CustomerDetails[100][2]; //2 columns, 0 for ID. 1 for Contact of that customer
+int CustomerIndex = 0; //points to the empty index
+void addCustomer(int ID, char name[], int contact);
+
+int main(){
+    int Id, Contact;
+    char Name[30];
+
+    printf("\nEnter ID: ");
+    scanf("%d", &Id);
+    printf("\nEnter Name: ");
+    scanf("%s", Name);
+    printf("\nEnter Contact: ");
+    scanf("%d", &Contact);
+    addCustomer(Id, Name, Contact);
+    // printf("\n%d", CustomerDetails[0][0]);
+    // printf("\t%d", CustomerDetails[0][1]); //just to check if data is added
+    // printf("\t %s", CustomerName[0]);
+    return 0;
+}
+
+void addCustomer(int ID, char name[], int contact){
+    int found=0;
+    for(int i=0; i<100; i++){
+        if(CustomerDetails[i][0] == ID){
+            found = 1;
+            break;
+        }
+    }
+    if(found == 1){
+        printf("\nThis customer already exists, enter a different ID!");
+    }
+    else{
+        CustomerDetails[CustomerIndex][0] = ID;
+        CustomerDetails[CustomerIndex][1] = contact;
+        strcpy(CustomerName[CustomerIndex], name); //copies the name into CustomerName string array
+        CustomerIndex = CustomerIndex + 1;
+        printf("\nCustomer added successfully!");
+    }
+}
+
