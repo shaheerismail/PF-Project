@@ -1,0 +1,128 @@
+#include <stdio.h>
+#include <string.h>
+
+int userchoice;
+char CustomerName[100][50];  // Max 100 Customers
+int CustomerDetails[100][2]; // 2 columns, 0 for ID. 1 for Contact of that customer
+int CustomerIndex = 0;       // points to the empty index
+
+void addCustomer(int ID, char name[], int contact);
+void CustomerMenu();
+void SearchRecord(int ID);
+
+int main()
+{
+    int Id, Id_2, Contact;
+    char Name[30];
+    
+    while (1) // Infinite loop until user chooses to exit
+    {
+        CustomerMenu(); // Show menu each time
+        
+        if (userchoice == 4) // Check if user wants to exit
+        {
+            printf("\nExiting System...");
+            break; // Exit the loop
+        }
+        
+        switch (userchoice)
+        {
+        case (1): // Add Customer Records
+            printf("\nEnter ID: ");
+            scanf("%d", &Id);
+            printf("Enter Name: ");
+            scanf("%s", Name);
+            printf("Enter Contact: ");
+            scanf("%d", &Contact);
+            addCustomer(Id, Name, Contact);
+            break;
+            
+        case (2): // Search a customer record
+            printf("\nEnter ID of record to search: ");
+            scanf("%d", &Id_2);
+            SearchRecord(Id_2);
+            break;
+            
+        case (3): // Prints all stored records
+            printf("\n\t--ALL RECORDS--\t\n");
+            if (CustomerIndex == 0)
+            {
+                printf("\nNo records found!\n");
+            }
+            else
+            {
+                for (int i = 0; i < CustomerIndex; i++)
+                {
+                    printf("\nID: %d\tName: %s\tContact: %d", CustomerDetails[i][0], CustomerName[i], CustomerDetails[i][1]);
+                }
+            }
+            break;
+            
+        default:
+            printf("\nInvalid number entered!");
+            break;
+        }
+        
+        printf("\n"); // Add spacing for readability
+    }
+    
+    return 0;
+}
+
+void addCustomer(int ID, char name[], int contact)
+{
+    int found = 0;
+    for (int i = 0; i < 100; i++)
+    {
+        if (CustomerDetails[i][0] == ID)
+        {
+            found = 1;
+            break;
+        }
+    }
+    if (found == 1)
+    {
+        printf("\nThis customer already exists, enter a different ID!");
+    }
+    else
+    {
+        CustomerDetails[CustomerIndex][0] = ID;
+        CustomerDetails[CustomerIndex][1] = contact;
+        strcpy(CustomerName[CustomerIndex], name);
+        CustomerIndex = CustomerIndex + 1;
+        printf("\nCustomer added successfully!");
+    }
+}
+
+void SearchRecord(int ID)
+{
+    int flag = 0;
+    for (int i = 0; i < 100; i++)
+    {
+        if (CustomerDetails[i][0] == ID)
+        {
+            printf("\nRecord found, fetching info...");
+            printf("\nCustomer ID: %d", CustomerDetails[i][0]);
+            printf("\nCustomer Name: %s", CustomerName[i]);
+            printf("\nCustomer Contact: %d", CustomerDetails[i][1]);
+            flag = 1;
+            break; // Stop searching once found
+        }
+    }
+    if (flag == 0)
+    {
+        printf("\nRecord Not Found, enter a valid ID!");
+    }
+}
+
+void CustomerMenu()
+{
+    printf("\n\n\t--CUSTOMER MENU--\t");
+    printf("\n\tEnter between 1 to 4 to perform an operation");
+    printf("\n\t1 - Add a Customer record");
+    printf("\n\t2 - Search for a customer record");
+    printf("\n\t3 - Print All Records");
+    printf("\n\t4 - Exit");
+    printf("\n\tEnter: ");
+    scanf("%d", &userchoice);
+}
